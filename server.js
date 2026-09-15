@@ -6,7 +6,13 @@ import { calculateSaju } from "ssaju";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { initDb, upsertUser, tryConsumeUsage, getRemainingUsage } from "./db.js";
+import {
+  initDb,
+  upsertUser,
+  tryConsumeUsage,
+  getRemainingUsage,
+  hasRemainingUsage,
+} from "./db.js";
 import {
   verifyGoogleIdToken,
   createSessionToken,
@@ -109,8 +115,7 @@ app.post("/api/saju", requireLogin, async (req, res) => {
     return res.status(400).json({ error: "성별을 선택해주세요." });
   }
 
-  const usage = await tryConsumeUsage(req.userId, DAILY_FREE_LIMIT);
-  if (!usage.allowed) {
+  if (!(await hasRemainingUsage(req.userId, DAILY_FREE_LIMIT))) {
     return res.status(429).json({
       error: `오늘 무료 사용 횟수(${DAILY_FREE_LIMIT}회)를 다 쓰셨어요. 내일 다시 시도해주세요.`,
     });
@@ -141,6 +146,8 @@ app.post("/api/saju", requireLogin, async (req, res) => {
 
   try {
     const interpretation = await interpretSaju(compact, Boolean(timeUnknown));
+    // AI 해석까지 성공했을 때만 무료 횟수를 차감한다.
+    const usage = await tryConsumeUsage(req.userId, DAILY_FREE_LIMIT);
     res.json({
       markdown,
       interpretation,
@@ -149,10 +156,11 @@ app.post("/api/saju", requireLogin, async (req, res) => {
     });
   } catch (err) {
     console.error("AI 해석 실패:", err.message);
+    const remaining = await getRemainingUsage(req.userId, DAILY_FREE_LIMIT);
     res.status(502).json({
       markdown,
       error: "AI 해석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
-      remaining: usage.remaining,
+      remaining,
       dailyLimit: DAILY_FREE_LIMIT,
     });
   }

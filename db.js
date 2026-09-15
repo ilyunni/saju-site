@@ -73,6 +73,12 @@ export async function tryConsumeUsage(userId, dailyLimit) {
   return { allowed: true, remaining: dailyLimit - rows[0].usage_count };
 }
 
+// 실제로 횟수를 쓰기 전에, 아직 여유가 있는지만 확인한다 (카운트를 늘리지 않음).
+export async function hasRemainingUsage(userId, dailyLimit) {
+  const remaining = await getRemainingUsage(userId, dailyLimit);
+  return remaining > 0;
+}
+
 export async function getRemainingUsage(userId, dailyLimit) {
   const user = await getUserById(userId);
   if (!user) return dailyLimit;

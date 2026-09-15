@@ -54,7 +54,7 @@ function buildUserMessage(compactSajuText, timeUnknown) {
 async function interpretSaju(compactSajuText, timeUnknown) {
   const response = await anthropic.messages.create({
     model: MODEL,
-    max_tokens: 1500,
+    max_tokens: 3000, // 한글은 토큰을 많이 잡아먹어서 문장이 잘리지 않도록 넉넉하게 잡음
     system: SAJU_SYSTEM_PROMPT,
     messages: [{ role: "user", content: buildUserMessage(compactSajuText, timeUnknown) }],
   });

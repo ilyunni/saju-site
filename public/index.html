@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>사주풀이</title>
+<link rel="stylesheet" href="style.css" />
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <header>
+    <h1>🔮 사주풀이</h1>
+    <p class="subtitle">생년월일을 입력하면 사주를 계산하고 AI가 풀이해드려요.</p>
+  </header>
+
+  <main>
+    <section id="login-box">
+      <div id="g_id_signin"></div>
+      <p class="hint">로그인 후 하루에 몇 번까지 무료로 사주를 볼 수 있어요.</p>
+    </section>
+
+    <section id="account-box" hidden>
+      <span id="account-email"></span>
+      <span id="account-remaining"></span>
+      <button type="button" id="logout-btn">로그아웃</button>
+    </section>
+
+    <form id="saju-form" hidden>
+      <div class="field">
+        <label for="calendar">양력 / 음력</label>
+        <select id="calendar" name="calendar">
+          <option value="solar" selected>양력</option>
+          <option value="lunar">음력</option>
+        </select>
+      </div>
+
+      <div class="field" id="leap-field" hidden>
+        <label class="checkbox">
+          <input type="checkbox" id="leap" name="leap" />
+          윤달이에요
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="year">생년월일</label>
+        <div class="date-row">
+          <input type="number" id="year" name="year" placeholder="년(예: 1995)" min="1900" max="2100" required />
+          <input type="number" id="month" name="month" placeholder="월" min="1" max="12" required />
+          <input type="number" id="day" name="day" placeholder="일" min="1" max="31" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="hour">태어난 시간</label>
+        <div class="date-row">
+          <input type="number" id="hour" name="hour" placeholder="시(0~23)" min="0" max="23" />
+          <input type="number" id="minute" name="minute" placeholder="분(0~59)" min="0" max="59" />
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" id="timeUnknown" name="timeUnknown" />
+          태어난 시간을 몰라요
+        </label>
+        <p class="hint">시간을 모르면 시주(時柱) 결과는 참고용으로만 봐주세요.</p>
+      </div>
+
+      <div class="field">
+        <label>성별</label>
+        <div class="radio-row">
+          <label class="radio"><input type="radio" name="gender" value="남" checked /> 남성</label>
+          <label class="radio"><input type="radio" name="gender" value="여" /> 여성</label>
+        </div>
+      </div>
+
+      <button type="submit" id="submit-btn">사주 보기</button>
+    </form>
+
+    <section id="result" hidden>
+      <div id="loading" hidden>
+        <div class="spinner"></div>
+        <p>사주를 계산하고 AI가 풀이를 작성 중이에요... (최대 1~2분 걸릴 수 있어요)</p>
+      </div>
+
+      <div id="error-box" class="error-box" hidden></div>
+
+      <details id="table-box" hidden>
+        <summary>📋 사주 원국표 자세히 보기</summary>
+        <pre id="saju-table"></pre>
+      </details>
+
+      <article id="interpretation"></article>
+    </section>
+  </main>
+
+  <footer>
+    <a href="privacy.html">개인정보처리방침</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

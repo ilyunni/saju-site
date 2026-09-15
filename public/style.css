@@ -1,0 +1,287 @@
+:root {
+  color-scheme: light dark;
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2a2320;
+  --muted: #8a7f75;
+  --accent: #8a4fff;
+  --accent-soft: #f1e9ff;
+  --border: #e8e0d6;
+  --error-bg: #fdecec;
+  --error-text: #a52a2a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17151b;
+    --card: #211e26;
+    --text: #ece7f0;
+    --muted: #a79fb0;
+    --accent: #b78cff;
+    --accent-soft: #2c2440;
+    --border: #34303c;
+    --error-bg: #3a2323;
+    --error-text: #ff9d9d;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* form, #account-box 등에 display:flex를 직접 지정해서 브라우저 기본 [hidden] 규칙을
+   덮어써버리는 문제를 막기 위한 안전장치. hidden 속성이 있으면 항상 안 보이게 한다. */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  padding-block: 32px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+header,
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+}
+
+form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.date-row {
+  display: flex;
+  gap: 8px;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.checkbox,
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.radio-row {
+  display: flex;
+  gap: 20px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+}
+
+button[type="submit"] {
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#result {
+  margin-top: 24px;
+}
+
+#loading {
+  text-align: center;
+  color: var(--muted);
+  padding: 24px 0;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 12px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-box {
+  background: var(--error-bg);
+  color: var(--error-text);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+#table-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+}
+
+#saju-table {
+  white-space: pre;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+#interpretation {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+#interpretation h2 {
+  font-size: 1.15rem;
+  margin: 20px 0 8px;
+  color: var(--accent);
+}
+
+#interpretation h2:first-child {
+  margin-top: 0;
+}
+
+#interpretation p {
+  margin: 0 0 12px;
+}
+
+#interpretation ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+#interpretation strong {
+  background: var(--accent-soft);
+  padding: 0 3px;
+  border-radius: 4px;
+}
+
+#interpretation table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+#interpretation th,
+#interpretation td {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  text-align: center;
+}
+
+#interpretation th {
+  background: var(--accent-soft);
+}
+
+#login-box {
+  text-align: center;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 18px;
+}
+
+#login-box #g_id_signin {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+#account-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 0.9rem;
+}
+
+#account-remaining {
+  color: var(--muted);
+}
+
+#logout-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+footer {
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding-inline: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+footer a {
+  color: var(--muted);
+}

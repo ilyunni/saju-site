@@ -1,0 +1,22 @@
+{
+  "name": "saju-site",
+  "version": "1.0.0",
+  "description": "생년월일로 사주를 계산하고 Anthropic API로 AI 해석을 받는 웹사이트 (구글 로그인 + 하루 무료 횟수 제한)",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "google-auth-library": "^11.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.0",
+    "ssaju": "^0.2.0"
+  }
+}

@@ -19,6 +19,24 @@ const timeUnknownCheckbox = document.getElementById("timeUnknown");
 const hourInput = document.getElementById("hour");
 const minuteInput = document.getElementById("minute");
 
+const readingTypeTabs = document.getElementById("reading-type-tabs");
+const READING_TYPE_LABELS = {
+  base: "사주 보기",
+  today: "오늘의 운세 보기",
+  newyear: "신년운세 보기",
+};
+let selectedReadingType = "base";
+
+readingTypeTabs.addEventListener("click", (e) => {
+  const btn = e.target.closest(".tab");
+  if (!btn) return;
+  selectedReadingType = btn.dataset.type;
+  readingTypeTabs
+    .querySelectorAll(".tab")
+    .forEach((t) => t.classList.toggle("active", t === btn));
+  submitBtn.textContent = READING_TYPE_LABELS[selectedReadingType];
+});
+
 calendarSelect.addEventListener("change", () => {
   leapField.hidden = calendarSelect.value !== "lunar";
 });
@@ -122,12 +140,14 @@ function renderMarkdown(text) {
 function showLoggedOutUI() {
   loginBox.hidden = false;
   accountBox.hidden = true;
+  readingTypeTabs.hidden = true;
   form.hidden = true;
 }
 
 function showLoggedInUI({ email, remaining, dailyLimit }) {
   loginBox.hidden = true;
   accountBox.hidden = false;
+  readingTypeTabs.hidden = false;
   form.hidden = false;
   if (email) accountEmailEl.textContent = email;
   accountRemainingEl.textContent = `오늘 남은 횟수: ${remaining}/${dailyLimit}`;
@@ -222,6 +242,7 @@ form.addEventListener("submit", async (e) => {
     minute: minuteInput.value,
     timeUnknown: timeUnknownCheckbox.checked,
     gender: form.querySelector('input[name="gender"]:checked')?.value,
+    readingType: selectedReadingType,
   };
 
   resultSection.hidden = false;

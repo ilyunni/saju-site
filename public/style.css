@@ -234,6 +234,30 @@ button[type="submit"]:disabled {
   background: var(--accent-soft);
 }
 
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 #login-box {
   text-align: center;
   padding: 24px;
